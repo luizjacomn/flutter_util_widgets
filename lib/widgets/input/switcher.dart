@@ -23,8 +23,8 @@ class Switcher extends StatefulWidget {
     this.activeColor,
     this.disableColor,
   })  : this._borderRadius = size / 6,
-        assert(onChange != null),
-        assert(size >= 16.0);
+        assert(onChange != null, 'The onChange function must be seted'),
+        assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
   Switcher.rounded({
     @required this.onChange,
@@ -34,8 +34,8 @@ class Switcher extends StatefulWidget {
     this.activeColor,
     this.disableColor,
   })  : this._borderRadius = size * 2.66,
-        assert(onChange != null),
-        assert(size >= 16.0);
+        assert(onChange != null, 'The onChange function must be seted'),
+        assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
   @override
   _SwitcherState createState() => _SwitcherState();

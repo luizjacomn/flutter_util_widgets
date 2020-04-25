@@ -13,6 +13,8 @@ class Switcher extends StatefulWidget {
 
   final Color disableColor;
 
+  final double _backgroundSize;
+
   final double _borderRadius;
 
   Switcher({
@@ -22,7 +24,8 @@ class Switcher extends StatefulWidget {
     this.size = 24.0,
     this.activeColor,
     this.disableColor,
-  })  : this._borderRadius = size / 6,
+  })  : _backgroundSize = size * 1.8,
+        this._borderRadius = size / 6,
         assert(onChange != null, 'The onChange function must be seted'),
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
@@ -33,7 +36,8 @@ class Switcher extends StatefulWidget {
     this.size = 25.0,
     this.activeColor,
     this.disableColor,
-  })  : this._borderRadius = size * 2.66,
+  })  : _backgroundSize = size * 1.8,
+        this._borderRadius = size * 2.66,
         assert(onChange != null, 'The onChange function must be seted'),
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
@@ -87,7 +91,7 @@ class _SwitcherState extends State<Switcher> {
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: AnimatedContainer(
           duration: widget.duration,
-          width: widget.size * 1.8,
+          width: widget._backgroundSize,
           height: widget.size,
           alignment: selected ? Alignment.centerRight : Alignment.centerLeft,
           decoration: BoxDecoration(

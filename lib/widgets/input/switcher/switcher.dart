@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_util_widgets/widgets/input/switcher/switcher_widget.dart';
 
 ///
 /// A `Switcher` widget to usage for input [bool] values.
@@ -98,10 +99,6 @@ class Switcher extends StatefulWidget {
   /// ```
   final Color disableColor;
 
-  /// This is a inner variable to control the size background of `Switcher`.
-  /// The value of this variable is equal to `size * (times) 1.8`.
-  final double _backgroundSize;
-
   /// This is a inner variable to control the shape of `Switcher`.
   /// * When you want a [Squared] shape, the value of this variable is equal to
   /// `16.6666...%` of [size] variable `(or size / 6)`.
@@ -134,9 +131,6 @@ class Switcher extends StatefulWidget {
     this.disableColor,
   })  :
 
-        /// Set background `size`.
-        _backgroundSize = size * 1.8,
-
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
 
@@ -161,9 +155,6 @@ class Switcher extends StatefulWidget {
     this.activeColor,
     this.disableColor,
   })  :
-
-        /// Set background `size`.
-        _backgroundSize = size * 1.8,
 
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
@@ -194,9 +185,6 @@ class Switcher extends StatefulWidget {
     this.disableColor,
   })  :
 
-        /// Set background `size`.
-        _backgroundSize = size * 1.8,
-
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
 
@@ -224,13 +212,10 @@ class Switcher extends StatefulWidget {
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
-    this.size = 25.0,
+    this.size = 24.0,
     this.activeColor,
     this.disableColor,
   })  :
-
-        /// Set background `size`.
-        _backgroundSize = size * 1.8,
 
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
@@ -264,38 +249,15 @@ class _SwitcherState extends State<Switcher> {
 
   bool get hasLabel => widget.label != null;
 
-  /// Method to return the [activeColor].
-  ///
-  /// * `context`: The [BuildContext] to access the [ThemeData.accentColor];
-  /// * `isBackground`: This specifies if the [Colors.withAlpha] method must be
-  /// called or not. The default value is `false`.
-  Color activeColor(BuildContext context, [bool isBackground = false]) {
-    Color ac = widget.activeColor != null
-        ? widget.activeColor
-        : Theme.of(context).accentColor;
-
-    if (isBackground) {
-      ac = ac.withAlpha(100);
-    }
-
-    return ac;
-  }
-
-  /// Method to return the [disableColor].
-  ///
-  /// * `context`: The [BuildContext] to access the [ThemeData.disabledColor];
-  /// * `isBackground`: This specifies if the [Colors.withAlpha] method must be
-  /// called or not. The default value is `false`.
-  Color disableColor(BuildContext context, [bool isBackground = false]) {
-    Color dc = widget.disableColor != null
-        ? widget.disableColor
-        : Theme.of(context).disabledColor;
-
-    if (isBackground) {
-      dc = dc.withAlpha(100);
-    }
-
-    return dc;
+  Widget get switcherWidget {
+    return SwitcherWidget(
+      selected: selected,
+      size: widget.size,
+      borderRadius: widget._borderRadius,
+      duration: widget.duration,
+      activeColor: widget.activeColor,
+      disableColor: widget.disableColor,
+    );
   }
 
   @override
@@ -306,8 +268,7 @@ class _SwitcherState extends State<Switcher> {
         setState(() => selected = !selected);
         widget.onChange(selected);
       },
-      child:
-          hasLabel ? buildSwitcherWithLabel(context) : buildSwitcher(context),
+      child: hasLabel ? buildSwitcherWithLabel(context) : switcherWidget,
     );
   }
 
@@ -323,36 +284,8 @@ class _SwitcherState extends State<Switcher> {
             style: widget.labelStyle,
           ),
         ),
-        buildSwitcher(context),
+        switcherWidget,
       ],
-    );
-  }
-
-  /// Method that return the [Switcher].
-  Widget buildSwitcher(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: AnimatedContainer(
-        duration: widget.duration,
-        width: widget._backgroundSize,
-        height: widget.size,
-        alignment: selected ? Alignment.centerRight : Alignment.centerLeft,
-        decoration: BoxDecoration(
-          color: selected
-              ? activeColor(context, true)
-              : disableColor(context, true),
-          borderRadius: BorderRadius.circular(widget._borderRadius),
-        ),
-        child: AnimatedContainer(
-          duration: widget.duration,
-          height: widget.size,
-          width: widget.size,
-          decoration: BoxDecoration(
-            color: selected ? activeColor(context) : disableColor(context),
-            borderRadius: BorderRadius.circular(widget._borderRadius),
-          ),
-        ),
-      ),
     );
   }
 }

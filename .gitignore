@@ -1,5 +1,7 @@
 # Project stuff
 /test/
+CHANGELOG.md
+README.md
 
 # Miscellaneous
 *.class

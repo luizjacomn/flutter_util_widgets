@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_util_widgets/widgets/input/switcher.dart';
+import 'package:flutter_util_widgets/widgets/input/switcher/switcher.dart';
 
 const title = 'Flutter Util Widgets Demo';
 

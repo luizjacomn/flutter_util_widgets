@@ -9,3 +9,7 @@
 ## [1.0.2] - April, 25, 2020.
 
 * Updating README.md with examples of Switcher widget usage.
+
+## [1.0.3] - April, 25, 2020.
+
+* Updating README.md with screenshot of Switcher widget usage.

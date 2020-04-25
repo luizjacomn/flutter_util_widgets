@@ -9,7 +9,7 @@ A flutter package that provides a variety of useful widgets. It&#x27;s constantl
 
 ### 1. Add this to your package's pubspec.yaml file:
 ```dart
-flutter_util_widgets: ^1.0.2
+flutter_util_widgets: ^1.0.3
 ```
 ### 2. Update dependencies:
 You can install packages from the command line:
@@ -27,7 +27,7 @@ import 'package:flutter_util_widgets/flutter_util_widgets.dart';
 
 #### 1. Switcher widget:
 ##### Screenshot:
-<img src="screenshots/switcher.gif" height="300em" />
+<img src="https://github.com/luizjacomn/flutter_util_widgets/raw/master/screenshots/switcher.gif" height="300em" />
 
 ##### Code:
 ```dart

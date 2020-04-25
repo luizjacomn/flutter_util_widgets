@@ -157,7 +157,7 @@ class Switcher extends StatefulWidget {
     @required this.onChange,
     this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
-    this.size = 25.0,
+    this.size = 24.0,
     this.activeColor,
     this.disableColor,
   })  :
@@ -189,7 +189,7 @@ class Switcher extends StatefulWidget {
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
-    this.size = 25.0,
+    this.size = 24.0,
     this.activeColor,
     this.disableColor,
   })  :

@@ -109,6 +109,15 @@ class Switcher extends StatefulWidget {
   /// `266.6666...%` of [size] variable `(or size * 2.66)`.
   final double _borderRadius;
 
+  /// The `text` displayed by the `label`.
+  String label;
+
+  /// The `style` for the `label`.
+  TextStyle labelStyle;
+
+  /// The `alignment` for the row that contains the `label` and the `Switcher`.
+  MainAxisAlignment mainAxisAlignment;
+
   /// The default [Switcher] constructor that render a square shaped `Switcher`.
   /// * onChange: `It's required`;
   /// * initialValue: Default is `false`;
@@ -124,12 +133,16 @@ class Switcher extends StatefulWidget {
     this.activeColor,
     this.disableColor,
   })  :
+
         /// Set background `size`.
         _backgroundSize = size * 1.8,
+
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
+
         /// Assert [onChange] is not null.
         assert(onChange != null, 'The onChange function must be seted'),
+
         /// Assert [size] is greater than or equal to `16.0`.
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
@@ -148,12 +161,86 @@ class Switcher extends StatefulWidget {
     this.activeColor,
     this.disableColor,
   })  :
+
         /// Set background `size`.
         _backgroundSize = size * 1.8,
+
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
+
         /// Assert [onChange] is not null.
         assert(onChange != null, 'The onChange function must be seted'),
+
+        /// Assert [size] is greater than or equal to `16.0`.
+        assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
+
+  /// The named constructor called [label] that render a square shaped `Switcher`
+  /// with a `label`.
+  /// * onChange: `It's required`;
+  /// * initialValue: Default is `false`;
+  /// * duration: Default is `Duration(milliseconds: 100)`;
+  /// * size: Default is `24.0`;
+  /// * activeColor: Default is `Theme.of(context).accentColor`;
+  /// * disableColor: Default is `Theme.of(context).disabledColor`;
+  Switcher.label({
+    @required this.onChange,
+    @required this.label,
+    this.labelStyle = const TextStyle(),
+    this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
+    this.initialValue = false,
+    this.duration = const Duration(milliseconds: 100),
+    this.size = 25.0,
+    this.activeColor,
+    this.disableColor,
+  })  :
+
+        /// Set background `size`.
+        _backgroundSize = size * 1.8,
+
+        /// Set shape to a `square`.
+        this._borderRadius = size / 6,
+
+        /// Assert [onChange] is not null.
+        assert(onChange != null, 'The onChange function must be seted'),
+
+        /// Assert [label] is not null.
+        assert(label != null, 'The label variable must be seted'),
+
+        /// Assert [size] is greater than or equal to `16.0`.
+        assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
+
+  /// The named constructor called [label] that render a circle shaped `Switcher`
+  /// with a `label`.
+  /// * onChange: `It's required`;
+  /// * initialValue: Default is `false`;
+  /// * duration: Default is `Duration(milliseconds: 100)`;
+  /// * size: Default is `24.0`;
+  /// * activeColor: Default is `Theme.of(context).accentColor`;
+  /// * disableColor: Default is `Theme.of(context).disabledColor`;
+  Switcher.labelAndRounded({
+    @required this.onChange,
+    @required this.label,
+    this.labelStyle = const TextStyle(),
+    this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
+    this.initialValue = false,
+    this.duration = const Duration(milliseconds: 100),
+    this.size = 25.0,
+    this.activeColor,
+    this.disableColor,
+  })  :
+
+        /// Set background `size`.
+        _backgroundSize = size * 1.8,
+
+        /// Set shape to a `circle`.
+        this._borderRadius = size * 2.66,
+
+        /// Assert [onChange] is not null.
+        assert(onChange != null, 'The onChange function must be seted'),
+
+        /// Assert [label] is not null.
+        assert(label != null, 'The label variable must be seted'),
+
         /// Assert [size] is greater than or equal to `16.0`.
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
@@ -174,6 +261,8 @@ class _SwitcherState extends State<Switcher> {
 
     selected = widget.initialValue;
   }
+
+  bool get hasLabel => widget.label != null;
 
   /// Method to return the [activeColor].
   ///
@@ -217,27 +306,50 @@ class _SwitcherState extends State<Switcher> {
         setState(() => selected = !selected);
         widget.onChange(selected);
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child:
+          hasLabel ? buildSwitcherWithLabel(context) : buildSwitcher(context),
+    );
+  }
+
+  /// Method that return a [Row] with the label ([Text]) and the [Switcher].
+  Widget buildSwitcherWithLabel(BuildContext context) {
+    return Row(
+      mainAxisAlignment: widget.mainAxisAlignment,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4.0, right: 8.0),
+          child: Text(
+            widget.label,
+            style: widget.labelStyle,
+          ),
+        ),
+        buildSwitcher(context),
+      ],
+    );
+  }
+
+  /// Method that return the [Switcher].
+  Widget buildSwitcher(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: AnimatedContainer(
+        duration: widget.duration,
+        width: widget._backgroundSize,
+        height: widget.size,
+        alignment: selected ? Alignment.centerRight : Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: selected
+              ? activeColor(context, true)
+              : disableColor(context, true),
+          borderRadius: BorderRadius.circular(widget._borderRadius),
+        ),
         child: AnimatedContainer(
           duration: widget.duration,
-          width: widget._backgroundSize,
           height: widget.size,
-          alignment: selected ? Alignment.centerRight : Alignment.centerLeft,
+          width: widget.size,
           decoration: BoxDecoration(
-            color: selected
-                ? activeColor(context, true)
-                : disableColor(context, true),
+            color: selected ? activeColor(context) : disableColor(context),
             borderRadius: BorderRadius.circular(widget._borderRadius),
-          ),
-          child: AnimatedContainer(
-            duration: widget.duration,
-            height: widget.size,
-            width: widget.size,
-            decoration: BoxDecoration(
-              color: selected ? activeColor(context) : disableColor(context),
-              borderRadius: BorderRadius.circular(widget._borderRadius),
-            ),
           ),
         ),
       ),

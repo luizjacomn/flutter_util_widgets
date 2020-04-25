@@ -17,3 +17,7 @@
 ## [1.0.4] - April, 25, 2020.
 
 * Isolating Switcher widget.
+
+## [1.0.5] - April, 25, 2020.
+
+* Repair screenshot of Switcher.

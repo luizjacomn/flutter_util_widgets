@@ -9,7 +9,7 @@ A flutter package that provides a variety of useful widgets. It&#x27;s constantl
 
 ### 1. Add this to your package's pubspec.yaml file:
 ```dart
-flutter_util_widgets: ^1.0.4
+flutter_util_widgets: ^1.0.5
 ```
 ### 2. Update dependencies:
 You can install packages from the command line:

@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_util_widgets/widgets/input/switcher.dart';
 
+const title = 'Flutter Util Widgets Demo';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: title,
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
     );
@@ -27,19 +30,57 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Util Widgets'),
+        title: const Text(title),
       ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Row(
+          child: Column(
             children: <Widget>[
-              Expanded(
-                child: Text(
-                  'Select theme',
-                ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Squared',
+                    ),
+                  ),
+                  Switcher(onChange: print),
+                ],
               ),
-              Switcher(onChange: print),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Rounded',
+                    ),
+                  ),
+                  Switcher.rounded(
+                    initialValue: true,
+                    onChange: print,
+                  ),
+                ],
+              ),
+              Switcher.label(
+                label: 'With label',
+                onChange: print,
+              ),
+              Switcher.labelAndRounded(
+                label: 'With label and rounded',
+                onChange: print,
+              ),
+              Switcher.label(
+                initialValue: true,
+                label: 'Customizing active color and label style',
+                labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                activeColor: Colors.amber,
+                onChange: print,
+              ),
+              Switcher.labelAndRounded(
+                mainAxisAlignment: MainAxisAlignment.end,
+                label: 'Customizing disabled color and alignment',
+                disableColor: Colors.blueGrey[300],
+                onChange: print,
+              ),
             ],
           ),
         ),

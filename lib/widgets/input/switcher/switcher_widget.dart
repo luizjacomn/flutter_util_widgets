@@ -25,9 +25,10 @@ class SwitcherWidget extends StatelessWidget {
     this.activeColor,
     this.disableColor,
   }) :
-  /// This is a inner variable to control the size background of `SwitcherWidget`.
-  /// The value of this variable is equal to `size * (times) 1.8`.
-  this._backgroundSize = size * 1.8;
+
+        /// This is a inner variable to control the size background of `SwitcherWidget`.
+        /// The value of this variable is equal to `size * (times) 1.8`.
+        this._backgroundSize = size * 1.8;
 
   /// Method to return the [activeColor].
   ///

@@ -1,7 +1,7 @@
 <!-- Language: [English](README.md) | [Português](translation/pt-BR/README.md) -->
 
 # flutter_util_widgets.dart
-<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/flutter__util__widgets-v1.0.0-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/flutter__util__widgets-v1.0.0-blue" style="max-width:100%;"></a>
+<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/pub-v1.0.5%2B1-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/pub-v1.0.5%2B1-blue" style="max-width:100%;"></a>
 
 A flutter package that provides a variety of useful widgets. It&#x27;s constantly updated.
 

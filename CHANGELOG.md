@@ -21,3 +21,7 @@
 ## [1.0.5] - April, 25, 2020.
 
 * Repair screenshot of Switcher.
+
+## [1.0.5+1] - April, 27, 2020.
+
+* Reformat switcher_widget.

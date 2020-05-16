@@ -25,3 +25,9 @@
 ## [1.0.5+1] - April, 27, 2020.
 
 * Reformat switcher_widget.
+
+## [1.0.5+2] - May, 16, 2020.
+
+* Introduce OneTypeSelector widget.
+* Remove state of Switcher widget.
+* Rearrange the example project structure.

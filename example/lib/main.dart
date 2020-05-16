@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:example/one_type_selector_example.dart';
 import 'package:example/switcher_example.dart';
 
 void main() => runApp(MyApp());
@@ -32,13 +31,6 @@ class _RouterState extends State<Router> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => SwitcherExample()));
-            },
-          ),
-          RaisedButton(
-            child: const Text('One Type Selector'),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => OneTypeSelectorExample()));
             },
           ),
         ],

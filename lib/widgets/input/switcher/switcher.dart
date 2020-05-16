@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_util_widgets/widgets/input/switcher/switcher_widget.dart';
+
+import './switcher_widget.dart';
 
 ///
 /// A `Switcher` widget to usage for input [bool] values.
@@ -12,7 +13,7 @@ import 'package:flutter_util_widgets/widgets/input/switcher/switcher_widget.dart
 /// assert(onChange != null);
 /// ```
 ///
-class Switcher extends StatefulWidget {
+class Switcher extends StatelessWidget {
   /// The callback function reference that is called after
   /// the `Switcher` value changes.
   /// Triggered when the inner control value is changed.
@@ -29,17 +30,17 @@ class Switcher extends StatefulWidget {
   /// ```
   final void Function(bool value) onChange;
 
-  /// Initial [bool] value for `Switcher`.
+  /// The [bool] value for `Switcher`.
   ///
   /// Example of usage:
   /// ```dart
   /// bool myValue = true;
   /// Switcher(
-  ///   initialValue: myValue, // Your custom value
+  ///   value: myValue, // Your custom value
   ///   // other properties
   /// );
   /// ```
-  final bool initialValue;
+  final bool value;
 
   /// The size of `Switcher`.
   ///
@@ -116,15 +117,15 @@ class Switcher extends StatefulWidget {
   MainAxisAlignment mainAxisAlignment;
 
   /// The default [Switcher] constructor that render a square shaped `Switcher`.
+  /// * value: Default is `It's required`;
   /// * onChange: `It's required`;
-  /// * initialValue: Default is `false`;
   /// * duration: Default is `Duration(milliseconds: 100)`;
   /// * size: Default is `24.0`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher({
+    @required this.value,
     @required this.onChange,
-    this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
     this.size = 24.0,
     this.activeColor,
@@ -134,6 +135,9 @@ class Switcher extends StatefulWidget {
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
 
+        /// Assert [value] is not null.
+        assert(value != null, 'The value must not be null'),
+
         /// Assert [onChange] is not null.
         assert(onChange != null, 'The onChange function must be seted'),
 
@@ -141,15 +145,15 @@ class Switcher extends StatefulWidget {
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
   /// The named constructor called [rounded] that render a circle shaped `Switcher`.
+  /// * value: Default is `It's required`;
   /// * onChange: `It's required`;
-  /// * initialValue: Default is `false`;
   /// * duration: Default is `Duration(milliseconds: 100)`;
   /// * size: Default is `24.0`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher.rounded({
+    @required this.value,
     @required this.onChange,
-    this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
     this.size = 24.0,
     this.activeColor,
@@ -159,6 +163,9 @@ class Switcher extends StatefulWidget {
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
 
+        /// Assert [value] is not null.
+        assert(value != null, 'The value must not be null'),
+
         /// Assert [onChange] is not null.
         assert(onChange != null, 'The onChange function must be seted'),
 
@@ -167,18 +174,18 @@ class Switcher extends StatefulWidget {
 
   /// The named constructor called [label] that render a square shaped `Switcher`
   /// with a `label`.
+  /// * value: Default is `It's required`;
   /// * onChange: `It's required`;
-  /// * initialValue: Default is `false`;
   /// * duration: Default is `Duration(milliseconds: 100)`;
   /// * size: Default is `24.0`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher.label({
+    @required this.value,
     @required this.onChange,
     @required this.label,
     this.labelStyle = const TextStyle(),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
-    this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
     this.size = 24.0,
     this.activeColor,
@@ -187,6 +194,9 @@ class Switcher extends StatefulWidget {
 
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
+
+        /// Assert [value] is not null.
+        assert(value != null, 'The value must not be null'),
 
         /// Assert [onChange] is not null.
         assert(onChange != null, 'The onChange function must be seted'),
@@ -199,18 +209,18 @@ class Switcher extends StatefulWidget {
 
   /// The named constructor called [label] that render a circle shaped `Switcher`
   /// with a `label`.
+  /// * value: Default is `It's required`;
   /// * onChange: `It's required`;
-  /// * initialValue: Default is `false`;
   /// * duration: Default is `Duration(milliseconds: 100)`;
   /// * size: Default is `24.0`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher.labelAndRounded({
+    @required this.value,
     @required this.onChange,
     @required this.label,
     this.labelStyle = const TextStyle(),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
-    this.initialValue = false,
     this.duration = const Duration(milliseconds: 100),
     this.size = 24.0,
     this.activeColor,
@@ -219,6 +229,9 @@ class Switcher extends StatefulWidget {
 
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
+
+        /// Assert [value] is not null.
+        assert(value != null, 'The value must not be null'),
 
         /// Assert [onChange] is not null.
         assert(onChange != null, 'The onChange function must be seted'),
@@ -229,34 +242,18 @@ class Switcher extends StatefulWidget {
         /// Assert [size] is greater than or equal to `16.0`.
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
 
-  @override
-  _SwitcherState createState() => _SwitcherState();
-}
-
-class _SwitcherState extends State<Switcher> {
-  /// The inner control value.
-  /// This will be control the state of [Switcher's] widget.
-  bool selected = false;
-
   // Overrides the [initState] method from [StatefulWidget] to set the value
-  /// of `selected` to `initialValue` if is provided.
-  @override
-  void initState() {
-    super.initState();
-
-    selected = widget.initialValue;
-  }
-
-  bool get hasLabel => widget.label != null;
+  /// of `selected` to `value` if is provided.
+  bool get hasLabel => label != null;
 
   Widget get switcherWidget {
     return SwitcherWidget(
-      selected: selected,
-      size: widget.size,
-      borderRadius: widget._borderRadius,
-      duration: widget.duration,
-      activeColor: widget.activeColor,
-      disableColor: widget.disableColor,
+      selected: this.value,
+      size: this.size,
+      borderRadius: this._borderRadius,
+      duration: this.duration,
+      activeColor: this.activeColor,
+      disableColor: this.disableColor,
     );
   }
 
@@ -265,8 +262,7 @@ class _SwitcherState extends State<Switcher> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        setState(() => selected = !selected);
-        widget.onChange(selected);
+        onChange(!this.value);
       },
       child: hasLabel ? buildSwitcherWithLabel(context) : switcherWidget,
     );
@@ -275,13 +271,13 @@ class _SwitcherState extends State<Switcher> {
   /// Method that return a [Row] with the label ([Text]) and the [Switcher].
   Widget buildSwitcherWithLabel(BuildContext context) {
     return Row(
-      mainAxisAlignment: widget.mainAxisAlignment,
+      mainAxisAlignment: mainAxisAlignment,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(bottom: 4.0, right: 8.0),
           child: Text(
-            widget.label,
-            style: widget.labelStyle,
+            label,
+            style: labelStyle,
           ),
         ),
         switcherWidget,

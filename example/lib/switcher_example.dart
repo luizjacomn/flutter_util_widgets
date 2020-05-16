@@ -106,7 +106,7 @@ class _SwitcherExampleState extends State<SwitcherExample> {
             Text('With label: $withLabel'),
             Text('With label and rounded: $withLabelRounded'),
             Text('Customizing active color and label style: $customActiveColor'),
-            Text('Customizing disabled color and alignment: $customActiveColor'),
+            Text('Customizing disabled color and alignment: $customDisabledColorAndAlignment'),
           ],
         ),
       ),

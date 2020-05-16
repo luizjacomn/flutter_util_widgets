@@ -14,9 +14,9 @@ class _SwitcherExampleState extends State<SwitcherExample> {
   bool customActiveColor = false;
   bool customDisabledColorAndAlignment = false;
 
-  void teste(Function(bool, bool) apply, bool teste, bool value) {
+  void setNewValue(Function(bool, bool) apply, bool value, bool newValue) {
     setState(() {
-      apply(teste, value);
+      apply(value, newValue);
     });
   }
 
@@ -41,7 +41,7 @@ class _SwitcherExampleState extends State<SwitcherExample> {
                 Switcher(
                   value: squared,
                   onChange: (value) {
-                    teste((let, val) => squared = value, squared, value);
+                    setNewValue((let, val) => squared = value, squared, value);
                   },
                 ),
               ],
@@ -56,7 +56,7 @@ class _SwitcherExampleState extends State<SwitcherExample> {
                 Switcher.rounded(
                   value: rounded,
                   onChange: (value) {
-                    teste((let, val) => rounded = value, rounded, value);
+                    setNewValue((let, val) => rounded = value, rounded, value);
                   },
                 ),
               ],
@@ -65,14 +65,14 @@ class _SwitcherExampleState extends State<SwitcherExample> {
               label: 'With label',
               value: withLabel,
               onChange: (value) {
-                teste((let, val) => withLabel = value, withLabel, value);
+                setNewValue((let, val) => withLabel = value, withLabel, value);
               },
             ),
             Switcher.labelAndRounded(
               label: 'With label and rounded',
               value: withLabelRounded,
               onChange: (value) {
-                teste((let, val) => withLabelRounded = value, withLabelRounded,
+                setNewValue((let, val) => withLabelRounded = value, withLabelRounded,
                     value);
               },
             ),
@@ -82,7 +82,7 @@ class _SwitcherExampleState extends State<SwitcherExample> {
               labelStyle: TextStyle(color: Theme.of(context).primaryColor),
               activeColor: Colors.amber,
               onChange: (value) {
-                teste((let, val) => customActiveColor = value,
+                setNewValue((let, val) => customActiveColor = value,
                     customActiveColor, value);
               },
             ),
@@ -92,7 +92,7 @@ class _SwitcherExampleState extends State<SwitcherExample> {
               disableColor: Colors.blueGrey[300],
               value: customDisabledColorAndAlignment,
               onChange: (value) {
-                teste((let, val) => customDisabledColorAndAlignment = value,
+                setNewValue((let, val) => customDisabledColorAndAlignment = value,
                     customDisabledColorAndAlignment, value);
               },
             ),

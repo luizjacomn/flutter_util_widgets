@@ -20,3 +20,20 @@ RichText viewBoolValues(label, value) {
     ),
   );
 }
+
+RichText viewValues(label, value) {
+  return RichText(
+    text: TextSpan(
+      text: label,
+      style: bolded,
+      children: [
+        TextSpan(
+          text: value == null ? '-' : '${value.toString()}',
+          style: TextStyle(color: Colors.amber.shade900),
+        ),
+      ],
+    ),
+  );
+}
+
+DateTime month(int month) => DateTime(DateTime.now().year, month, 1);

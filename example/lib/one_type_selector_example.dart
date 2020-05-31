@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_util_widgets/widgets/input/one_type_selector/one_type_selector.dart';
 
 import './models/person.dart';
-
-const TextStyle _bold = TextStyle(fontWeight: FontWeight.bold);
+import './util/auxiliar_stuff.dart';
 
 class OneTypeSelectorExample extends StatefulWidget {
   @override
@@ -45,9 +44,6 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
     month(DateTime.december),
   ];
 
-  /// Aux method to get <current-year> - MONTH - <first-day-of-month>
-  static DateTime month(int month) => DateTime(DateTime.now().year, month, 1);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +58,7 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Favorite character?', style: _bold),
+                const Text('Favorite character?', style: bolded),
                 const SizedBox(height: 4.0),
                 OneTypeSelector<String>(
                   value: otaku.favoriteCharacter,
@@ -81,7 +77,7 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Favorite anime?', style: _bold),
+                const Text('Favorite anime?', style: bolded),
                 const SizedBox(height: 4.0),
                 OneTypeSelector<String>(
                   value: otaku.favoriteAnime,
@@ -104,7 +100,7 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Birth month?', style: _bold),
+                const Text('Birth month?', style: bolded),
                 const SizedBox(height: 4.0),
                 OneTypeSelector<DateTime>.rect(
                   value: otaku.birthMonth,
@@ -127,7 +123,7 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Is single?', style: _bold),
+                const Text('Is single?', style: bolded),
                 const SizedBox(height: 4.0),
                 OneTypeSelector<bool>(
                   value: otaku.isSingle,
@@ -149,13 +145,13 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               children: <Widget>[
                 Text(
                   'Who am I?',
-                  style: _bold.copyWith(color: Theme.of(context).accentColor),
+                  style: bolded.copyWith(color: Theme.of(context).accentColor),
                 ),
-                const SizedBox(height: 4.0),
-                Text(
-                  otaku.toString(),
-                  style: _bold,
-                ),
+                viewValues('Name: ', otaku.name),
+                viewValues('Favorite character: ', otaku.favoriteCharacter),
+                viewValues('Favorite anime: ', otaku.favoriteAnime),
+                viewValues('Birth month: ', otaku.birthMonth?.month),
+                viewValues('Is single: ', otaku.isSingle),
               ],
             ),
           ),

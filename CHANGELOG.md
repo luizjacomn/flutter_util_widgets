@@ -31,3 +31,7 @@
 * Introduce OneTypeSelector widget.
 * Remove state of Switcher widget.
 * Rearrange the example project structure.
+
+## [1.0.5+3] - Jun, 10, 2020.
+
+* Adding comparingBy function to OneTypeSelector widget.

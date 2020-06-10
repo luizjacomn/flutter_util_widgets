@@ -1,7 +1,7 @@
 <!-- Language: [English](README.md) | [Português](translation/pt-BR/README.md) -->
 
 # flutter_util_widgets.dart
-<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/flutter__util__widgets-v1.0.5+2-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/flutter__util__widgets-v1.0.0-blue" style="max-width:100%;"></a>
+<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/pub-v1.0.5+2-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/pub-v1.0.5+2-blue" style="max-width:100%;"></a>
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/luizjacomn/flutter_util_widgets.svg?branch=master)](https://travis-ci.com/luizjacomn/flutter_util_widgets)
 
@@ -12,7 +12,7 @@ A flutter package that provides a variety of useful widgets. It&#x27;s constantl
 
 ### 1. Add this to your package's pubspec.yaml file:
 ```dart
-flutter_util_widgets: ^1.0.5+2
+flutter_util_widgets: ^1.0.5+3
 ```
 ### 2. Update dependencies:
 You can install packages from the command line:
@@ -186,6 +186,9 @@ class OneTypeSelectorExample extends StatefulWidget {
 
 class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
   Person otaku = Person('Otaku Sr.');
+  Person p1 = Person('Person 1');
+  Person p2 = Person('Person 2');
+  Person selected;
 
   List<String> characters = [
     'Eren Yeager',
@@ -314,6 +317,27 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text('Select a person?', style: bolded),
+                const SizedBox(height: 4.0),
+                OneTypeSelector<Person>(
+                  value: selected,
+                  options: [p1, p2],
+                  setValueLabel: (person) => person.name,
+                  comparingBy: (person) => person.name,
+                  onValueChanged: (Person value) {
+                    setState(() {
+                      this.selected = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
           const Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -322,13 +346,14 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               children: <Widget>[
                 Text(
                   'Who am I?',
-                  style: _bold.copyWith(color: Theme.of(context).accentColor),
+                  style: bolded.copyWith(color: Theme.of(context).accentColor),
                 ),
-                const SizedBox(height: 4.0),
-                Text(
-                  otaku.toString(),
-                  style: _bold,
-                ),
+                viewValues('Name: ', otaku.name),
+                viewValues('Favorite character: ', otaku.favoriteCharacter),
+                viewValues('Favorite anime: ', otaku.favoriteAnime),
+                viewValues('Birth month: ', otaku.birthMonth?.month),
+                viewValues('Is single: ', otaku.isSingle),
+                viewValues('Selected person: ', selected?.name),
               ],
             ),
           ),

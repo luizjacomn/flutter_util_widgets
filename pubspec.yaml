@@ -1,7 +1,7 @@
 name: flutter_util_widgets
 description: A flutter package that provides common useful widgets. It's constantly updated.
 homepage: https://github.com/luizjacomn/flutter_util_widgets
-version: 1.0.5+2
+version: 1.0.5+3
 # git tag -a v1.0.1 -m "tag-title"
 # add to changelog
 # update install version on readme

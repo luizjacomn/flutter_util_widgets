@@ -206,6 +206,18 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// A constructor called [rect] provides a rect corner shape.
   final double _borderRadius;
 
+  /// The default comparation for obtain selected value uses the `==` operator.
+  /// But when working with objects, this method don't will work properly.
+  /// Using this function, it's possible set how the comparation supose to be.
+  /// Example of usage:
+  /// ```dart
+  /// OneTypeSelector(
+  ///   comparingBy: (obj) => obj.id,
+  ///   // other properties
+  /// );
+  /// ```
+  final dynamic Function(T value) comparingBy;
+
   /// The default [OneTypeSelector] constructor that render a [rounded corner] `OneTypeSelector`.
   /// * value: `It's required`;
   /// * onValueChanged: `It's required`;
@@ -220,6 +232,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// * setValueLabel: Default is [value];
   /// * valueLabelStyle: Default is `TextStyle(color: Colors.white)`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
+  /// * comparingBy: Default is `==`;
   OneTypeSelector({
     @required this.value,
     @required this.onValueChanged,
@@ -235,10 +248,12 @@ class OneTypeSelector<T> extends StatelessWidget {
     this.valueLabelStyle,
     this.activeColor,
     this.disabledColor,
+    this.comparingBy,
   })  :
 
         /// Set shape to a [rounded corner].
         this._borderRadius = 8.0,
+
         /// Assert [transitionDuration] is not null.
         assert(transitionDuration != null,
             "The 'transitionDuration' must not be null"),
@@ -268,6 +283,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// * setValueLabel: Default is [value];
   /// * valueLabelStyle: Default is `TextStyle(color: Colors.white)`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
+  /// * comparingBy: Default is `==`;
   OneTypeSelector.rect({
     @required this.value,
     @required this.onValueChanged,
@@ -283,10 +299,12 @@ class OneTypeSelector<T> extends StatelessWidget {
     this.valueLabelStyle,
     this.activeColor,
     this.disabledColor,
+    this.comparingBy,
   })  :
 
         /// Set shape to a [rect corner].
         this._borderRadius = 0.0,
+
         /// Assert [transitionDuration] is not null.
         assert(transitionDuration != null,
             "The 'transitionDuration' must not be null"),
@@ -304,7 +322,8 @@ class OneTypeSelector<T> extends StatelessWidget {
 
   Color _getActiveColor(ctx) => this.activeColor ?? Theme.of(ctx).accentColor;
 
-  Color _getDisabledColor(ctx) => this.disabledColor ?? Theme.of(ctx).disabledColor;
+  Color _getDisabledColor(ctx) =>
+      this.disabledColor ?? Theme.of(ctx).disabledColor;
 
   BorderRadius _getBorderRadius(index) {
     if (index == 0) {
@@ -346,12 +365,25 @@ class OneTypeSelector<T> extends StatelessWidget {
     );
   }
 
+  bool equality(value, itemValue) {
+    try {
+      if (comparingBy == null) {
+        return value == itemValue;
+      }
+
+      return comparingBy(value) == comparingBy(itemValue);
+    } catch (e) {
+      return false;
+    }
+  }
+
   Widget _buildOption(
       BuildContext context, BoxConstraints constraints, int index) {
-    final itemValue = options[index] as dynamic;
+    final itemValue = options[index];
+
     return InkWell(
       onTap: () {
-        if (toggleOptionOnTap && value == itemValue) {
+        if (toggleOptionOnTap && equality(value, itemValue)) {
           onValueChanged(null);
         } else {
           onValueChanged(itemValue);
@@ -363,14 +395,16 @@ class OneTypeSelector<T> extends StatelessWidget {
         height: constraints.maxHeight,
         padding: this.contentPadding,
         decoration: BoxDecoration(
-          color: itemValue == value
+          color: equality(value, itemValue)
               ? _getActiveColor(context)
               : _getDisabledColor(context),
           borderRadius: _getBorderRadius(index),
         ),
         child: Center(
           child: Text(
-            setValueLabel == null ? itemValue.toString() : setValueLabel(itemValue),
+            setValueLabel == null
+                ? itemValue.toString()
+                : setValueLabel(itemValue),
             textAlign: TextAlign.center,
             overflow: valueLabelOverflow,
             style: this.valueLabelStyle ?? TextStyle(color: Colors.white),

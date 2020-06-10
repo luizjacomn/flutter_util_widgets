@@ -12,6 +12,9 @@ class OneTypeSelectorExample extends StatefulWidget {
 
 class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
   Person otaku = Person('Otaku Sr.');
+  Person p1 = Person('Person 1');
+  Person p2 = Person('Person 2');
+  Person selected;
 
   List<String> characters = [
     'Eren Yeager',
@@ -137,6 +140,27 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text('Select a person?', style: bolded),
+                const SizedBox(height: 4.0),
+                OneTypeSelector<Person>(
+                  value: selected,
+                  options: [p1, p2],
+                  setValueLabel: (person) => person.name,
+                  comparingBy: (person) => person.name,
+                  onValueChanged: (Person value) {
+                    setState(() {
+                      this.selected = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
           const Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -152,6 +176,7 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
                 viewValues('Favorite anime: ', otaku.favoriteAnime),
                 viewValues('Birth month: ', otaku.birthMonth?.month),
                 viewValues('Is single: ', otaku.isSingle),
+                viewValues('Selected person: ', selected?.name),
               ],
             ),
           ),

@@ -1,7 +1,7 @@
 <!-- Language: [English](README.md) | [Português](translation/pt-BR/README.md) -->
 
 # flutter_util_widgets.dart
-<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/pub-v1.0.5+2-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/pub-v1.0.5+2-blue" style="max-width:100%;"></a>
+<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/pub-v1.0.5+3-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/pub-v1.0.5+3-blue" style="max-width:100%;"></a>
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/luizjacomn/flutter_util_widgets.svg?branch=master)](https://travis-ci.com/luizjacomn/flutter_util_widgets)
 

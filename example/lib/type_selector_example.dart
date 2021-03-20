@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_util_widgets/widgets/input/one_type_selector/one_type_selector.dart';
+import 'package:flutter_util_widgets/widgets/input/type_selector/type_selector.dart';
 
 import './models/person.dart';
 import './util/auxiliar_stuff.dart';
 
-class OneTypeSelectorExample extends StatefulWidget {
+class TypeSelectorExample extends StatefulWidget {
   @override
-  _OneTypeSelectorExampleState createState() => _OneTypeSelectorExampleState();
+  _TypeSelectorExampleState createState() => _TypeSelectorExampleState();
 }
 
-class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
+class _TypeSelectorExampleState extends State<TypeSelectorExample> {
   Person otaku = Person('Otaku Sr.');
   Person p1 = Person('Person 1');
   Person p2 = Person('Person 2');
-  Person selected;
+  Person? selected;
 
   List<String> characters = [
     'Eren Yeager',
@@ -51,7 +51,7 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('One Type Selector Example'),
+        title: const Text('Type Selector Example'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,10 +63,10 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               children: <Widget>[
                 const Text('Favorite character?', style: bolded),
                 const SizedBox(height: 4.0),
-                OneTypeSelector<String>(
+                TypeSelector<String>(
                   value: otaku.favoriteCharacter,
                   options: characters,
-                  onValueChanged: (String value) {
+                  onValueChanged: (String? value) {
                     setState(() {
                       this.otaku.favoriteCharacter = value;
                     });
@@ -80,18 +80,27 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Favorite anime?', style: bolded),
+                const Text('Top 3 Favorite anime? (multiple values)',
+                    style: bolded),
                 const SizedBox(height: 4.0),
-                OneTypeSelector<String>(
-                  value: otaku.favoriteAnime,
+                TypeSelector<String>(
+                  multiple: true,
+                  maxQuantityValues: 3,
+                  onMaxQuantityValues: (max) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Max quantity reached: $max'),
+                      backgroundColor: Colors.red,
+                    ));
+                  },
+                  values: otaku.favoriteAnimes,
                   options: animes,
                   optionWidth: 150.0,
                   toggleOptionOnTap: true,
                   separatorWidth: 0.0,
                   contentPadding: const EdgeInsets.all(4.0),
-                  onValueChanged: (String value) {
+                  onValuesChanged: (List<String> values) {
                     setState(() {
-                      this.otaku.favoriteAnime = value;
+                      this.otaku.favoriteAnimes = values;
                     });
                   },
                 ),
@@ -105,11 +114,11 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               children: <Widget>[
                 const Text('Birth month?', style: bolded),
                 const SizedBox(height: 4.0),
-                OneTypeSelector<DateTime>.rect(
+                TypeSelector<DateTime>.rect(
                   value: otaku.birthMonth,
                   options: months,
                   activeColor: Colors.amber,
-                  onValueChanged: (DateTime value) {
+                  onValueChanged: (DateTime? value) {
                     setState(() {
                       this.otaku.birthMonth = value;
                     });
@@ -128,10 +137,10 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               children: <Widget>[
                 const Text('Is single?', style: bolded),
                 const SizedBox(height: 4.0),
-                OneTypeSelector<bool>(
+                TypeSelector<bool>(
                   value: otaku.isSingle,
                   options: [true, false],
-                  onValueChanged: (bool value) {
+                  onValueChanged: (bool? value) {
                     setState(() {
                       this.otaku.isSingle = value;
                     });
@@ -147,12 +156,12 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
               children: <Widget>[
                 const Text('Select a person?', style: bolded),
                 const SizedBox(height: 4.0),
-                OneTypeSelector<Person>(
+                TypeSelector<Person>(
                   value: selected,
                   options: [p1, p2],
                   setValueLabel: (person) => person.name,
                   comparingBy: (person) => person.name,
-                  onValueChanged: (Person value) {
+                  onValueChanged: (Person? value) {
                     setState(() {
                       this.selected = value;
                     });
@@ -173,7 +182,8 @@ class _OneTypeSelectorExampleState extends State<OneTypeSelectorExample> {
                 ),
                 viewValues('Name: ', otaku.name),
                 viewValues('Favorite character: ', otaku.favoriteCharacter),
-                viewValues('Favorite anime: ', otaku.favoriteAnime),
+                viewValues(
+                    'Top 3 Favorite animes: ', otaku.favoriteAnimes.join(', ')),
                 viewValues('Birth month: ', otaku.birthMonth?.month),
                 viewValues('Is single: ', otaku.isSingle),
                 viewValues('Selected person: ', selected?.name),

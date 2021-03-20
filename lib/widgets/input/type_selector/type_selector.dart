@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 ///
-/// A `OneTypeSelector` widget to usage for select one in yours available [options].
+/// A `TypeSelector` widget to usage for select one in yours available [options].
 ///
 /// The type parameter `T` serves the same purpose as that of the
-/// [OneTypeSelector] class' type parameter.
-/// The [OneTypeSelector] requests a `callback Function(T)` named as
+/// [TypeSelector] class' type parameter.
+/// The [TypeSelector] requests a `callback Function(T)` named as
 /// [onValueChanged] which will be triggered after the [value] changed.
 ///
 /// If the [options] list is absent, an assertion error will be throw.
@@ -17,24 +17,52 @@ import 'package:flutter/material.dart';
 /// assert(onValueChanged != null);
 /// ```
 ///
-class OneTypeSelector<T> extends StatelessWidget {
-  /// The [value] for this `OneTypeSelector`.
+class TypeSelector<T> extends StatelessWidget {
+  /// The available [options] for `TypeSelector`.
+  ///
+  /// The [options] list ` must not be null`.
+  /// The [options] list ` must contain at least 2 elements`.
   ///
   /// Example of usage:
   /// ```dart
-  /// String myValue;
-  /// OneTypeSelector(
+  /// TypeSelector<bool>(
+  ///   options: [true, false],
+  ///   // other properties
+  /// );
+  /// ```
+  final List<T> options;
+
+  /// Defines value of `TypeSelector` is a single or [multiple] objects.
+  /// The default value is:
+  /// ```dart
+  /// false
+  /// ```
+  /// Example of usage:
+  /// ```dart
+  /// TypeSelector(
+  ///   multiple: [true, false],
+  ///   // other properties
+  /// );
+  /// ```
+  final bool multiple;
+
+  /// The [value] for this `TypeSelector`.
+  ///
+  /// Example of usage:
+  /// ```dart
+  /// String? myValue;
+  /// TypeSelector(
   ///   value: myValue, // Your custom value
   ///   // other properties
   /// );
   /// ```
-  final T value;
+  final T? value;
 
   /// The callback function reference that is called after
-  /// the `OneTypeSelector` value changes.
+  /// the `TypeSelector` value changes.
   /// Triggered when the [value] is changed.
   ///
-  /// The [onValueChanged] function ` must not be null`.
+  /// The [onValueChanged] function ` must not be null if multiple attribute is [false]`.
   ///
   /// Example of usage:
   /// ```dart
@@ -42,46 +70,97 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///     print(value); // Do something
   /// }
   ///
-  /// OneTypeSelector(onvalueChanged: myOnChangeMethod);
+  /// TypeSelector(onValueChanged: myOnChangeMethod);
   /// ```
-  final ValueChanged<T?> onValueChanged;
+  final ValueChanged<T?>? onValueChanged;
 
-  /// The available [options] for `OneTypeSelector`.
-  ///
-  /// The [options] list ` must not be null`.
-  /// The [options] list ` must contain at least 2 elements`.
+  /// The [values] for this `TypeSelector` (when multiple attribute is [true]).
   ///
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector<bool>(
-  ///   options: [true, false],
+  /// List<String>? myValues;
+  /// TypeSelector(
+  ///   values: myValues, // Your custom list of values
+  ///   multiple: true,
   ///   // other properties
   /// );
   /// ```
-  final List<T> options;
+  late List<T>? values;
 
-  /// The [transitionDuration] of the `OneTypeSelector` animation on value changed.
+  /// The callback function reference that is called after
+  /// the `TypeSelector` values changes.
+  /// Triggered when the [values] is changed.
+  ///
+  /// The [onValueChanged] function ` must not be null if multiple attribute is [true]`.
+  ///
+  /// Example of usage:
+  /// ```dart
+  /// void myOnChangeMethod(List<T> values) {
+  ///     values.forEach((value) => print(value)); // Do something
+  /// }
+  ///
+  /// TypeSelector(
+  ///   onValuesChanged: myOnChangeMethod,
+  ///   multiple: true,
+  /// );
+  /// ```
+  final ValueChanged<List<T>>? onValuesChanged;
+
+  /// The [maxQuantityValues] for this `TypeSelector` (when multiple attribute is [true]).
+  ///
+  /// The [maxQuantityValues] value ` must be greater or equal to 1`.
+  ///
+  /// The default value is:
+  /// ```dart
+  /// values.length // if multiple is [true]
+  /// ```
+  ///
+  /// Example of usage:
+  /// ```dart
+  /// TypeSelector(
+  ///   maxQuantityValues: 3, // the value must be 1 or more
+  ///   multiple: true,
+  ///   // other properties
+  /// );
+  /// ```
+  final int? maxQuantityValues;
+
+  /// The `Callback function` called when [values.length == maxQuantityValues].
+  ///
+  /// Example of usage:
+  /// ```dart
+  /// TypeSelector(
+  ///   onMaxQuantityValues: (max) {
+  ///       print('Max quantity reached: $max');
+  ///   },
+  ///   multiple: true,
+  ///   // other properties
+  /// );
+  /// ```
+  final void Function(int maxQuantityValues)? onMaxQuantityValues;
+
+  /// The [transitionDuration] of the `TypeSelector` animation on value changed.
   /// The default value is:
   /// ```dart
   /// Duration(milliseconds: 250);
   /// ```
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   transitionDuration: Duration(milliseconds: 250),
   ///   // other properties
   /// );
   /// ```
   final Duration transitionDuration;
 
-  /// The padding for the `OneTypeSelector`.
+  /// The padding for the `TypeSelector`.
   /// The default value is:
   /// ```dart
   /// EdgeInsets.all(8.0);
   /// ```
   /// /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
   ///   // other properties
   /// );
@@ -95,7 +174,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// ```
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   valueLabelOverflow: TextOverflow.ellipsis,
   ///   // other properties
   /// );
@@ -116,20 +195,20 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   separatorWidth: 5.0,
   ///   // other properties
   /// );
   /// ```
   final double separatorWidth;
 
-  /// The height for `OneTypeSelector`.
+  /// The height for `TypeSelector`.
   ///
   /// The default value is `50.0`.
   ///
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   height: 35.0,
   ///   // other properties
   /// );
@@ -144,7 +223,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// ```
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   separatorWidth: 5.0,
   ///   // other properties
   /// );
@@ -155,7 +234,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// The default value is [value].
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector<String>(
+  /// TypeSelector<String>(
   ///   setValueLabel: (String value) {
   ///       value.substring(0, 1); // for each option, the value label will be the first letter
   ///   },
@@ -171,7 +250,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// ```
   final TextStyle? valueLabelStyle;
 
-  /// The active [Color] of the `OneTypeSelector`.
+  /// The active [Color] of the `TypeSelector`.
   /// Is displayed when an option is `selected`.
   /// The default value is:
   /// ```dart
@@ -179,14 +258,14 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// ```
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   activeColor: Colors.amber,
   ///   // other properties
   /// );
   /// ```
   final Color? activeColor;
 
-  /// The disabled [Color] of the `OneTypeSelector`.
+  /// The disabled [Color] of the `TypeSelector`.
   /// Is displayed when an option is `not selected`.
   /// The default value is:
   /// ```dart
@@ -194,14 +273,14 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// ```
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   disabledColor: Colors.grey,
   ///   // other properties
   /// );
   /// ```
   final Color? disabledColor;
 
-  /// This is a inner variable to control the shape of `OneTypeSelector`.
+  /// This is a inner variable to control the shape of `TypeSelector`.
   /// The default value is `8.0` and provides a rounded corner shape.
   /// A constructor called [rect] provides a rect corner shape.
   final double _borderRadius;
@@ -211,17 +290,21 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// Using this function, it's possible set how the comparation supose to be.
   /// Example of usage:
   /// ```dart
-  /// OneTypeSelector(
+  /// TypeSelector(
   ///   comparingBy: (obj) => obj.id,
   ///   // other properties
   /// );
   /// ```
   final dynamic Function(T value)? comparingBy;
 
-  /// The default [OneTypeSelector] constructor that render a [rounded corner] `OneTypeSelector`.
-  /// * value: `It's required`;
-  /// * onValueChanged: `It's required`;
+  /// The default [TypeSelector] constructor that render a [rounded corner] `TypeSelector`.
   /// * options: `It's required`;
+  /// * multiple: Default is `false`;
+  /// * value: `It's required if [multiple] flag is false`;
+  /// * onValueChanged: `It's required if [multiple] flag is false`;
+  /// * values: `It's required if [multiple] flag is true`;
+  /// * onValuesChanged: `It's required if [multiple] flag is true`;
+  /// * onMaxQuantityValues: `It's optional`;
   /// * transitionDuration: Default is `Duration(milliseconds: 250)`;
   /// * contentPadding: Default is `EdgeInsets.all(8.0)`;
   /// * valueLabelOverflow: Default is `TextOverflow.clip`;
@@ -233,10 +316,15 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// * valueLabelStyle: Default is `TextStyle(color: Colors.white)`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * comparingBy: Default is `==`;
-  OneTypeSelector({
-    required this.value,
-    required this.onValueChanged,
+  TypeSelector({
     required this.options,
+    this.multiple = false,
+    value,
+    onValueChanged,
+    values,
+    onValuesChanged,
+    maxQuantityValues,
+    onMaxQuantityValues,
     this.transitionDuration = const Duration(milliseconds: 250),
     this.contentPadding = const EdgeInsets.all(8.0),
     this.valueLabelOverflow = TextOverflow.clip,
@@ -249,7 +337,13 @@ class OneTypeSelector<T> extends StatelessWidget {
     this.activeColor,
     this.disabledColor,
     this.comparingBy,
-  })  :
+  })  : this.value = multiple ? null : value,
+        this.onValueChanged = multiple ? null : onValueChanged,
+        this.values = multiple ? values ?? [] : null,
+        this.onValuesChanged = multiple ? onValuesChanged : null,
+        this.maxQuantityValues =
+            multiple ? maxQuantityValues ?? options.length : null,
+        this.onMaxQuantityValues = multiple ? onMaxQuantityValues : null,
 
         /// Set shape to a [rounded corner].
         this._borderRadius = 8.0,
@@ -258,10 +352,14 @@ class OneTypeSelector<T> extends StatelessWidget {
         assert(options.length >= 2,
             "The 'options' list must contain at least 2 elements");
 
-  /// The default [OneTypeSelector] constructor that render a [rect corner] `OneTypeSelector`.
-  /// * value: `It's required`;
-  /// * onValueChanged: `It's required`;
+  /// The default [TypeSelector] constructor that render a [rect corner] `TypeSelector`.
   /// * options: `It's required`;
+  /// * multiple: Default is `false`;
+  /// * value: `It's required if [multiple] flag is false`;
+  /// * onValueChanged: `It's required if [multiple] flag is false`;
+  /// * values: `It's required if [multiple] flag is true`;
+  /// * onValuesChanged: `It's required if [multiple] flag is true`;
+  /// * onMaxQuantityValues: `It's optional`;
   /// * transitionDuration: Default is `Duration(milliseconds: 250)`;
   /// * contentPadding: Default is `EdgeInsets.all(8.0)`;
   /// * valueLabelOverflow: Default is `TextOverflow.clip`;
@@ -273,10 +371,15 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// * valueLabelStyle: Default is `TextStyle(color: Colors.white)`;
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * comparingBy: Default is `==`;
-  OneTypeSelector.rect({
-    required this.value,
-    required this.onValueChanged,
+  TypeSelector.rect({
     required this.options,
+    this.multiple = false,
+    value,
+    onValueChanged,
+    values,
+    onValuesChanged,
+    maxQuantityValues,
+    onMaxQuantityValues,
     this.transitionDuration = const Duration(milliseconds: 250),
     this.contentPadding = const EdgeInsets.all(8.0),
     this.valueLabelOverflow = TextOverflow.clip,
@@ -289,7 +392,13 @@ class OneTypeSelector<T> extends StatelessWidget {
     this.activeColor,
     this.disabledColor,
     this.comparingBy,
-  })  :
+  })  : this.value = multiple ? null : value,
+        this.onValueChanged = multiple ? null : onValueChanged,
+        this.values = multiple ? values ?? [] : null,
+        this.onValuesChanged = multiple ? onValuesChanged : null,
+        this.maxQuantityValues =
+            multiple ? maxQuantityValues ?? options.length : null,
+        this.onMaxQuantityValues = multiple ? onMaxQuantityValues : null,
 
         /// Set shape to a [rect corner].
         this._borderRadius = 0.0,
@@ -346,7 +455,14 @@ class OneTypeSelector<T> extends StatelessWidget {
   bool equality(value, itemValue) {
     try {
       if (comparingBy == null) {
+        if (multiple) {
+          return values!.contains(itemValue);
+        }
         return value == itemValue;
+      }
+
+      if (multiple) {
+        return values!.any(comparingBy!(itemValue));
       }
 
       return comparingBy!(value) == comparingBy!(itemValue);
@@ -361,10 +477,24 @@ class OneTypeSelector<T> extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        if (toggleOptionOnTap && equality(value, itemValue)) {
-          onValueChanged(null);
+        if (equality(value, itemValue) && (multiple || toggleOptionOnTap)) {
+          if (multiple) {
+            values!.remove(itemValue);
+            onValuesChanged!(values!);
+          } else {
+            onValueChanged!(null);
+          }
         } else {
-          onValueChanged(itemValue);
+          if (multiple) {
+            if (maxQuantityValues! > values!.length) {
+              values!.add(itemValue);
+              onValuesChanged!(values!);
+            } else {
+              onMaxQuantityValues!(maxQuantityValues!);
+            }
+          } else {
+            onValueChanged!(itemValue);
+          }
         }
       },
       child: AnimatedContainer(

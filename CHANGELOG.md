@@ -39,3 +39,7 @@
 ## [1.1.0] - Mar, 20, 2021.
 
 * Adding support for Null Safety.
+
+## [1.1.0+1] - Mar, 20, 2021.
+
+* Adding multiple choices option for TypeSelector (old OneTypeSelector).

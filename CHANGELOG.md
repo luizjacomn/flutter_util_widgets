@@ -35,3 +35,7 @@
 ## [1.0.5+3] - Jun, 10, 2020.
 
 * Adding comparingBy function to OneTypeSelector widget.
+
+## [1.1.0] - Mar, 20, 2021.
+
+* Adding support for Null Safety.

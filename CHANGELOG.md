@@ -1,30 +1,19 @@
-## [1.0.0] - April, 25, 2020.
+## [1.1.0+2] - Mar, 20, 2021.
 
-* Adding Switcher widget.
+* Fixing Switcher's animation.
+* Updating example.
 
-## [1.0.1] - April, 25, 2020.
+## [1.1.0+1] - Mar, 20, 2021.
 
-* Adding new customization options to Switcher widget.
+* Adding multiple choices option for TypeSelector (old OneTypeSelector).
 
-## [1.0.2] - April, 25, 2020.
+## [1.1.0] - Mar, 20, 2021.
 
-* Updating README.md with examples of Switcher widget usage.
+* Adding support for Null Safety.
 
-## [1.0.3] - April, 25, 2020.
+## [1.0.5+3] - Jun, 10, 2020.
 
-* Updating README.md with screenshot of Switcher widget usage.
-
-## [1.0.4] - April, 25, 2020.
-
-* Isolating Switcher widget.
-
-## [1.0.5] - April, 25, 2020.
-
-* Repair screenshot of Switcher.
-
-## [1.0.5+1] - April, 27, 2020.
-
-* Reformat switcher_widget.
+* Adding comparingBy function to OneTypeSelector widget.
 
 ## [1.0.5+2] - May, 16, 2020.
 
@@ -32,14 +21,31 @@
 * Remove state of Switcher widget.
 * Rearrange the example project structure.
 
-## [1.0.5+3] - Jun, 10, 2020.
+## [1.0.5+1] - April, 27, 2020.
 
-* Adding comparingBy function to OneTypeSelector widget.
+* Reformat switcher_widget.
 
-## [1.1.0] - Mar, 20, 2021.
+## [1.0.5] - April, 25, 2020.
 
-* Adding support for Null Safety.
+* Repair screenshot of Switcher.
 
-## [1.1.0+1] - Mar, 20, 2021.
+## [1.0.4] - April, 25, 2020.
 
-* Adding multiple choices option for TypeSelector (old OneTypeSelector).
+* Isolating Switcher widget.
+
+## [1.0.3] - April, 25, 2020.
+
+* Updating README.md with screenshot of Switcher widget usage.
+
+
+## [1.0.2] - April, 25, 2020.
+
+* Updating README.md with examples of Switcher widget usage.
+
+## [1.0.1] - April, 25, 2020.
+
+* Adding new customization options to Switcher widget.
+
+## [1.0.0] - April, 25, 2020.
+
+* Adding Switcher widget.

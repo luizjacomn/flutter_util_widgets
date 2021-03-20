@@ -108,7 +108,7 @@ class Switcher extends StatelessWidget {
   final double _borderRadius;
 
   /// The `text` displayed by the `label`.
-  late String? label;
+  String? label;
 
   /// The `style` for the `label`.
   TextStyle? labelStyle;
@@ -252,7 +252,7 @@ class Switcher extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 4.0, right: 8.0),
           child: Text(
-            label!,
+            label??'',
             style: labelStyle,
           ),
         ),

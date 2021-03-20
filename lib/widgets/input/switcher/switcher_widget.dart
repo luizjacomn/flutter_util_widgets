@@ -40,7 +40,7 @@ class SwitcherWidget extends StatelessWidget {
         activeColor != null ? activeColor : Theme.of(context).accentColor;
 
     if (isBackground) {
-      ac?..withAlpha(100);
+      ac = ac?.withAlpha(100);
     }
 
     return ac;
@@ -56,7 +56,7 @@ class SwitcherWidget extends StatelessWidget {
         disableColor != null ? disableColor : Theme.of(context).disabledColor;
 
     if (isBackground) {
-      dc?..withAlpha(100);
+      dc = dc?.withAlpha(100);
     }
 
     return dc;

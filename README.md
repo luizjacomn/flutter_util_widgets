@@ -1,7 +1,7 @@
 <!-- Language: [English](README.md) | [Português](translation/pt-BR/README.md) -->
 
 # flutter_util_widgets.dart - We're Null Safety ;)
-<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/pub-v1.1.0+1-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/pub-v1.1.0+1-blue" style="max-width:100%;"></a>
+<a href="https://pub.dev/packages/flutter_util_widgets" rel="nofollow" target="_blank"><img src="https://img.shields.io/badge/pub-v1.1.0+2-blue" alt="pub package" data-canonical-src="https://img.shields.io/badge/pub-v1.1.0+2-blue" style="max-width:100%;"></a>
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.com/luizjacomn/flutter_util_widgets.svg?branch=master)](https://travis-ci.com/luizjacomn/flutter_util_widgets)
 
@@ -12,7 +12,7 @@ A flutter package that provides a variety of useful widgets. It&#x27;s constantl
 
 ### 1. Add this to your package's pubspec.yaml file:
 ```dart
-flutter_util_widgets: ^1.1.0+1
+flutter_util_widgets: ^1.1.0+2
 ```
 ### 2. Update dependencies:
 You can install packages from the command line:

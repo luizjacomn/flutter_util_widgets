@@ -164,14 +164,14 @@ class Person {
   final String name;
   DateTime? birthMonth;
   bool? isSingle;
-  List<String> favoriteAnime = [];
+  List<String> favoriteAnimes = [];
   String? favoriteCharacter;
 
   Person(this.name);
 
   @override
   String toString() {
-    return 'Name: $name - Birth month: ${birthMonth?.month} - Is single: $isSingle - Favorite anime: $favoriteAnime - Favorite character: $favoriteCharacter';
+    return 'Name: $name - Birth month: ${birthMonth?.month} - Is single: $isSingle - Favorite animes: $favoriteAnimes - Favorite character: $favoriteCharacter';
   }
 }
 ```
@@ -261,7 +261,7 @@ class _TypeSelectorExampleState extends State<TypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Top 3 Favorite anime? (multiple values)',
+                const Text('Top 3 Favorite animes? (multiple values)',
                     style: bolded),
                 const SizedBox(height: 4.0),
                 TypeSelector<String>(

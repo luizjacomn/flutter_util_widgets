@@ -159,7 +159,8 @@ class _SwitcherExampleState extends State<SwitcherExample> {
 ###### Class Person:
 
 ```dart
-final String name;
+class Person {
+  final String name;
   DateTime birthMonth;
   bool isSingle;
   String favoriteAnime;
@@ -171,7 +172,9 @@ final String name;
   String toString() {
     return 'Name: $name - Birth month: ${birthMonth?.month} - Is single: $isSingle - Favorite anime: $favoriteAnime - Favorite character: $favoriteCharacter';
   }
+}
 ```
+
 ```dart
 import 'package:flutter/material.dart';
 

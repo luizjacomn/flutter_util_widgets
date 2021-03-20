@@ -80,7 +80,7 @@ class _TypeSelectorExampleState extends State<TypeSelectorExample> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Top 3 Favorite anime? (multiple values)',
+                const Text('Top 3 Favorite animes? (multiple values)',
                     style: bolded),
                 const SizedBox(height: 4.0),
                 TypeSelector<String>(

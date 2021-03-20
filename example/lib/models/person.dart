@@ -9,6 +9,6 @@ class Person {
 
   @override
   String toString() {
-    return 'Name: $name - Birth month: ${birthMonth?.month} - Is single: $isSingle - Top Favorite animes: $favoriteAnimes - Favorite character: $favoriteCharacter';
+    return 'Name: $name - Birth month: ${birthMonth?.month} - Is single: $isSingle - Favorite animes: $favoriteAnimes - Favorite character: $favoriteCharacter';
   }
 }

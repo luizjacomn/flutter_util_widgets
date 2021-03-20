@@ -9,8 +9,8 @@ class SwitcherWidget extends StatelessWidget {
   final double borderRadius;
   final bool selected;
   final Duration duration;
-  final Color disableColor;
-  final Color activeColor;
+  final Color? disableColor;
+  final Color? activeColor;
 
   /// The default [SwitcherWidget] constructor.
   /// * size;
@@ -18,10 +18,10 @@ class SwitcherWidget extends StatelessWidget {
   /// * selected;
   /// * duration;
   const SwitcherWidget({
-    @required this.size,
-    @required this.borderRadius,
-    @required this.selected,
-    @required this.duration,
+    required this.size,
+    required this.borderRadius,
+    required this.selected,
+    required this.duration,
     this.activeColor,
     this.disableColor,
   }) :
@@ -35,12 +35,12 @@ class SwitcherWidget extends StatelessWidget {
   /// * `context`: The [BuildContext] to access the [ThemeData.accentColor];
   /// * `isBackground`: This specifies if the [Colors.withAlpha] method must be
   /// called or not. The default value is `false`.
-  Color _activeColor(BuildContext context, [bool isBackground = false]) {
-    Color ac =
+  Color? _activeColor(BuildContext context, [bool isBackground = false]) {
+    Color? ac =
         activeColor != null ? activeColor : Theme.of(context).accentColor;
 
     if (isBackground) {
-      ac = ac.withAlpha(100);
+      ac?..withAlpha(100);
     }
 
     return ac;
@@ -51,12 +51,12 @@ class SwitcherWidget extends StatelessWidget {
   /// * `context`: The [BuildContext] to access the [ThemeData.disabledColor];
   /// * `isBackground`: This specifies if the [Colors.withAlpha] method must be
   /// called or not. The default value is `false`.
-  Color _disableColor(BuildContext context, [bool isBackground = false]) {
-    Color dc =
+  Color? _disableColor(BuildContext context, [bool isBackground = false]) {
+    Color? dc =
         disableColor != null ? disableColor : Theme.of(context).disabledColor;
 
     if (isBackground) {
-      dc = dc.withAlpha(100);
+      dc?..withAlpha(100);
     }
 
     return dc;

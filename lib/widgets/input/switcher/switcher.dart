@@ -83,7 +83,7 @@ class Switcher extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The disable [Color] of the `Switcher`.
   /// Is displayed when the inner control value is equal to `false`.
@@ -98,7 +98,7 @@ class Switcher extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final Color disableColor;
+  final Color? disableColor;
 
   /// This is a inner variable to control the shape of `Switcher`.
   /// * When you want a [Squared] shape, the value of this variable is equal to
@@ -108,13 +108,13 @@ class Switcher extends StatelessWidget {
   final double _borderRadius;
 
   /// The `text` displayed by the `label`.
-  String label;
+  late String? label;
 
   /// The `style` for the `label`.
-  TextStyle labelStyle;
+  TextStyle? labelStyle;
 
   /// The `alignment` for the row that contains the `label` and the `Switcher`.
-  MainAxisAlignment mainAxisAlignment;
+  late MainAxisAlignment mainAxisAlignment;
 
   /// The default [Switcher] constructor that render a square shaped `Switcher`.
   /// * value: Default is `It's required`;
@@ -124,8 +124,8 @@ class Switcher extends StatelessWidget {
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher({
-    @required this.value,
-    @required this.onChange,
+    required this.value,
+    required this.onChange,
     this.duration = const Duration(milliseconds: 100),
     this.size = 24.0,
     this.activeColor,
@@ -134,12 +134,6 @@ class Switcher extends StatelessWidget {
 
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
-
-        /// Assert [value] is not null.
-        assert(value != null, 'The value must not be null'),
-
-        /// Assert [onChange] is not null.
-        assert(onChange != null, 'The onChange function must be seted'),
 
         /// Assert [size] is greater than or equal to `16.0`.
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
@@ -152,8 +146,8 @@ class Switcher extends StatelessWidget {
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher.rounded({
-    @required this.value,
-    @required this.onChange,
+    required this.value,
+    required this.onChange,
     this.duration = const Duration(milliseconds: 100),
     this.size = 24.0,
     this.activeColor,
@@ -162,12 +156,6 @@ class Switcher extends StatelessWidget {
 
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
-
-        /// Assert [value] is not null.
-        assert(value != null, 'The value must not be null'),
-
-        /// Assert [onChange] is not null.
-        assert(onChange != null, 'The onChange function must be seted'),
 
         /// Assert [size] is greater than or equal to `16.0`.
         assert(size >= 16.0, 'The size must be greater than or equal to 16.0');
@@ -181,9 +169,9 @@ class Switcher extends StatelessWidget {
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher.label({
-    @required this.value,
-    @required this.onChange,
-    @required this.label,
+    required this.value,
+    required this.onChange,
+    required this.label,
     this.labelStyle = const TextStyle(),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.duration = const Duration(milliseconds: 100),
@@ -194,12 +182,6 @@ class Switcher extends StatelessWidget {
 
         /// Set shape to a `square`.
         this._borderRadius = size / 6,
-
-        /// Assert [value] is not null.
-        assert(value != null, 'The value must not be null'),
-
-        /// Assert [onChange] is not null.
-        assert(onChange != null, 'The onChange function must be seted'),
 
         /// Assert [label] is not null.
         assert(label != null, 'The label variable must be seted'),
@@ -216,9 +198,9 @@ class Switcher extends StatelessWidget {
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * disableColor: Default is `Theme.of(context).disabledColor`;
   Switcher.labelAndRounded({
-    @required this.value,
-    @required this.onChange,
-    @required this.label,
+    required this.value,
+    required this.onChange,
+    required this.label,
     this.labelStyle = const TextStyle(),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.duration = const Duration(milliseconds: 100),
@@ -229,12 +211,6 @@ class Switcher extends StatelessWidget {
 
         /// Set shape to a `circle`.
         this._borderRadius = size * 2.66,
-
-        /// Assert [value] is not null.
-        assert(value != null, 'The value must not be null'),
-
-        /// Assert [onChange] is not null.
-        assert(onChange != null, 'The onChange function must be seted'),
 
         /// Assert [label] is not null.
         assert(label != null, 'The label variable must be seted'),
@@ -276,7 +252,7 @@ class Switcher extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 4.0, right: 8.0),
           child: Text(
-            label,
+            label!,
             style: labelStyle,
           ),
         ),

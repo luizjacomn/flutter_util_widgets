@@ -27,14 +27,14 @@ class _RouterState extends State<Router> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          RaisedButton(
+          ElevatedButton(
             child: const Text('Switcher'),
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => SwitcherExample()));
             },
           ),
-          RaisedButton(
+          ElevatedButton(
             child: const Text('One Type Selector'),
             onPressed: () {
               Navigator.of(context).push(

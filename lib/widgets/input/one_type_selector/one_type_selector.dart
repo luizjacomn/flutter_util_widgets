@@ -44,7 +44,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///
   /// OneTypeSelector(onvalueChanged: myOnChangeMethod);
   /// ```
-  final ValueChanged<T> onValueChanged;
+  final ValueChanged<T?> onValueChanged;
 
   /// The available [options] for `OneTypeSelector`.
   ///
@@ -149,7 +149,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final double optionWidth;
+  final double? optionWidth;
 
   /// This function defines a label for every option (from [options]).
   /// The default value is [value].
@@ -162,14 +162,14 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final String Function(T value) setValueLabel;
+  final String Function(T value)? setValueLabel;
 
   /// The `style` for the `value label`.
   /// The default value is:
   /// ```dart
   /// TextStyle(color: Colors.white)
   /// ```
-  final TextStyle valueLabelStyle;
+  final TextStyle? valueLabelStyle;
 
   /// The active [Color] of the `OneTypeSelector`.
   /// Is displayed when an option is `selected`.
@@ -184,7 +184,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final Color activeColor;
+  final Color? activeColor;
 
   /// The disabled [Color] of the `OneTypeSelector`.
   /// Is displayed when an option is `not selected`.
@@ -199,7 +199,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final Color disabledColor;
+  final Color? disabledColor;
 
   /// This is a inner variable to control the shape of `OneTypeSelector`.
   /// The default value is `8.0` and provides a rounded corner shape.
@@ -216,7 +216,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   ///   // other properties
   /// );
   /// ```
-  final dynamic Function(T value) comparingBy;
+  final dynamic Function(T value)? comparingBy;
 
   /// The default [OneTypeSelector] constructor that render a [rounded corner] `OneTypeSelector`.
   /// * value: `It's required`;
@@ -234,9 +234,9 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * comparingBy: Default is `==`;
   OneTypeSelector({
-    @required this.value,
-    @required this.onValueChanged,
-    @required this.options,
+    required this.value,
+    required this.onValueChanged,
+    required this.options,
     this.transitionDuration = const Duration(milliseconds: 250),
     this.contentPadding = const EdgeInsets.all(8.0),
     this.valueLabelOverflow = TextOverflow.clip,
@@ -253,17 +253,6 @@ class OneTypeSelector<T> extends StatelessWidget {
 
         /// Set shape to a [rounded corner].
         this._borderRadius = 8.0,
-
-        /// Assert [transitionDuration] is not null.
-        assert(transitionDuration != null,
-            "The 'transitionDuration' must not be null"),
-
-        /// Assert [onValueChanged] is not null.
-        assert(onValueChanged != null,
-            "The function 'onValueChanged' is required"),
-
-        /// Assert [options] is not null.
-        assert(options != null, "The 'options' list is required"),
 
         /// Assert [options] list contains at least 2 elements.
         assert(options.length >= 2,
@@ -285,9 +274,9 @@ class OneTypeSelector<T> extends StatelessWidget {
   /// * activeColor: Default is `Theme.of(context).accentColor`;
   /// * comparingBy: Default is `==`;
   OneTypeSelector.rect({
-    @required this.value,
-    @required this.onValueChanged,
-    @required this.options,
+    required this.value,
+    required this.onValueChanged,
+    required this.options,
     this.transitionDuration = const Duration(milliseconds: 250),
     this.contentPadding = const EdgeInsets.all(8.0),
     this.valueLabelOverflow = TextOverflow.clip,
@@ -305,17 +294,6 @@ class OneTypeSelector<T> extends StatelessWidget {
         /// Set shape to a [rect corner].
         this._borderRadius = 0.0,
 
-        /// Assert [transitionDuration] is not null.
-        assert(transitionDuration != null,
-            "The 'transitionDuration' must not be null"),
-
-        /// Assert [onValueChanged] is not null.
-        assert(onValueChanged != null,
-            "The function 'onValueChanged' is required"),
-
-        /// Assert [options] is not null.
-        assert(options != null, "The 'options' list is required"),
-
         /// Assert [options] list contains at least 2 elements.
         assert(options.length >= 2,
             "The 'options' list must contain at least 2 elements");
@@ -325,7 +303,7 @@ class OneTypeSelector<T> extends StatelessWidget {
   Color _getDisabledColor(ctx) =>
       this.disabledColor ?? Theme.of(ctx).disabledColor;
 
-  BorderRadius _getBorderRadius(index) {
+  BorderRadius? _getBorderRadius(index) {
     if (index == 0) {
       return BorderRadius.only(
         topLeft: Radius.circular(_borderRadius),
@@ -371,7 +349,7 @@ class OneTypeSelector<T> extends StatelessWidget {
         return value == itemValue;
       }
 
-      return comparingBy(value) == comparingBy(itemValue);
+      return comparingBy!(value) == comparingBy!(itemValue);
     } catch (e) {
       return false;
     }
@@ -404,7 +382,7 @@ class OneTypeSelector<T> extends StatelessWidget {
           child: Text(
             setValueLabel == null
                 ? itemValue.toString()
-                : setValueLabel(itemValue),
+                : setValueLabel!(itemValue),
             textAlign: TextAlign.center,
             overflow: valueLabelOverflow,
             style: this.valueLabelStyle ?? TextStyle(color: Colors.white),
